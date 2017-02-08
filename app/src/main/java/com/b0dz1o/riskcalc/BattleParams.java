@@ -1,5 +1,6 @@
 package com.b0dz1o.riskcalc;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -62,6 +64,11 @@ public class BattleParams extends AppCompatActivity {
     }
 
     private void calcBattle() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         EditText yourText = (EditText) findViewById(R.id.editText);
         EditText hisText = (EditText) findViewById(R.id.editText2);
         TextView wynik = (TextView) findViewById(R.id.textView3);
