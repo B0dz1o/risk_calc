@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,8 @@ public class BattleParams extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        TextView wynik = (TextView) findViewById(R.id.textView3);
+        wynik.setMovementMethod(new ScrollingMovementMethod());
         Button calc = (Button) findViewById(R.id.button);
         calc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +75,7 @@ public class BattleParams extends AppCompatActivity {
     }
 
     private String simulate(int your, int his) {
+        String res = "";
         while (your > 0 && his > 0) {
             ArrayList<Integer> yourDiceRes = new ArrayList<Integer>(0);
             ArrayList<Integer> hisDiceRes = new ArrayList<Integer>(0);
@@ -100,8 +104,13 @@ public class BattleParams extends AppCompatActivity {
                     --your;
                 }
             }
+            String s = "kości ataku: " + yourDiceRes.toString() +"\nkości obrony: " + hisDiceRes.toString();
+            s = s.concat(String.format("\npozostało atakujących: %d, obrońców: %d\n", your, his));
+            res = res.concat(s);
+
         }
-        return String.format("atakujących: %d, obrońców: %d", your, his);
+//        return String.format("atakujących: %d, obrońców: %d", your, his);
+        return res;
     }
 
     @Override

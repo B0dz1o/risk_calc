@@ -28,8 +28,8 @@ android {
         applicationId "com.b0dz1o.riskcalc"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.0.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
