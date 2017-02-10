@@ -1,8 +1,10 @@
 package com.b0dz1o.riskcalc;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -72,10 +74,24 @@ public class BattleParams extends AppCompatActivity {
         EditText yourText = (EditText) findViewById(R.id.editText);
         EditText hisText = (EditText) findViewById(R.id.editText2);
         TextView wynik = (TextView) findViewById(R.id.textView3);
+        wynik.scrollTo(0, 0);
         try {
-            int yourStrenth = Integer.parseInt(yourText.getText().toString());
-            int hisStrenth = Integer.parseInt(hisText.getText().toString());
-            wynik.setText(simulate(yourStrenth, hisStrenth));
+            final int yourStrenth = Integer.parseInt(yourText.getText().toString());
+            final int hisStrenth = Integer.parseInt(hisText.getText().toString());
+            final ProgressDialog mDialog = new ProgressDialog(this);
+            mDialog.setMessage("Wysyłam do NASA...");
+            mDialog.setCancelable(false);
+            mDialog.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mDialog.hide();
+                    TextView wynik = (TextView) findViewById(R.id.textView3);
+                    wynik.setText(simulate(yourStrenth, hisStrenth));
+                    wynik.scrollTo(0, 0);
+                }
+            }, 3500);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -116,8 +132,9 @@ public class BattleParams extends AppCompatActivity {
             res = res.concat(s);
 
         }
-//        return String.format("atakujących: %d, obrońców: %d", your, his);
-        return res;
+
+        return String.format("WYNIK OSTATECZNY: atakujących: %d, obrońców: %d\n_________\n\n", your, his).concat(res);
+//        return res;
     }
 
 
